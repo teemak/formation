@@ -28,12 +28,18 @@ function init() {
 
 function printNode(node) {
 	let p = node;
+	let string = '';
 	while(p != null) {
 		let data = p.getData();
-		console.log(data + " -> ");
+		string += data + " -> ";
+		// console.log(data + " -> ");
 		p = p.next;
 	}
-	console.log('End\n\n');
+	let linkedList = string;
+	console.log(linkedList);
+	console.log('End');
 }
 
-console.log(init());
+//console.log(init());
+let node1 = init();
+printNode(node1);
