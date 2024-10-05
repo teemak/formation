@@ -37,6 +37,8 @@ Run tests. Methodically debug & analyze issues.
 '''
 */
 
+/* My Implementation
+ *
 class ListNode {
 	constructor(val, next = null) {
 		this.val = val;
@@ -79,7 +81,69 @@ function printList(head) {
 	}
 	return result.join(" -> ");
 }
+*/
 
+/* Formation Implementation */
+class Node {
+    constructor(val, next = null) {
+	this.val = val;
+	this.next = next;
+    }
+}
+
+function everyKthNode(node, target) {
+    if(node == null || target == 0) {
+	return null;
+    }
+    let dummy = new Node('dummy', null);
+    let p1 = dummy;
+    let counter = 0;
+    let current = node;
+
+    while(current != null) {
+	counter += 1;
+	if(counter % target == 0) {
+	    let newNode = new Node(current.val, null)
+	    p1.next = newNode;
+	    p1 = p1.next;
+	}
+	current = current.next;
+    }
+    return dummy.next;
+}
+
+function toString(head) {
+    if(!head) return "<empty>";
+    
+    let parts = [];
+    while(head) {
+	parts.push(head.val);
+	head = head.next;
+    }
+
+    return parts.join(" -> ");
+};
+
+// 1 -> 3 -> 6 -> 2 -> 8 -> 9
+let head = new Node(1, new Node(3, new Node(6, new Node(2, new Node(8, new Node(9))))))
+console.log(toString(everyKthNode(head, 3)) == "6 -> 9")
+console.log(toString(everyKthNode(head, 1)) == "1 -> 3 -> 6 -> 2 -> 8 -> 9")
+console.log(toString(everyKthNode(head, 5)) == "8")
+console.log(toString(everyKthNode(head, 6)) == "9")
+console.log(toString(everyKthNode(head, 7)) == "<empty>")
+
+// 6
+head = new Node(6)
+console.log(toString(everyKthNode(head, 1)) == "6")
+console.log(toString(everyKthNode(head, 20)) == "<empty>")
+
+// 6 -> 12
+head = new Node(6, new Node(12))
+console.log(toString(everyKthNode(head, 1)) == "6 -> 12")
+console.log(toString(everyKthNode(head, 2)) == "12")
+console.log(toString(everyKthNode(null, 5)) == "<empty>")
+
+/* my tests
 let head1 = arrayToList([1, 3, 6, 2, 8, 9]);
 let head2 = arrayToList([1]);
 let head3 = arrayToList([1, 2, 3]);
@@ -89,4 +153,4 @@ console.log(printList(everyKthNode(head1, 3)));  // Expected Output: "6 -> 9"
 console.log(printList(everyKthNode(head2, 1)));  // Expected Output: "1"
 console.log(printList(everyKthNode(head3, 4)));  // Expected Output: ""
 console.log(printList(everyKthNode(head4, 2)));  // Expected Output: "2 -> 4 -> 6"
-
+*/
