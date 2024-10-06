@@ -48,6 +48,9 @@ Run tests. Methodically debug & analyze issues.
 '''
 */
 
+// input  1 -> 3 -> 5 -> 2
+// output 2 -> 5 -> 3 -> 1
+
 class Node {
     constructor(val, next = null) {
 	this.val = val;
@@ -55,31 +58,46 @@ class Node {
     }
 }
 
-function createArrayInReverse(node) {
-    const result = [];
-
-    while(node) {
-	result.push(node.val);
-	node = node.next;
+function reverseLL(node) {
+    // prev pointer
+    let prev = null;
+    // current pointer
+    let current = node;
+    
+    // iterate nodes while current is not null; when null === end
+    while(current != null) {
+        // need next reference so node doesn't become orphaned
+        let next = current.next;
+        // 1. swap current.next with prev
+        current.next = prev;
+        // 2. move pointers prev ->
+        prev = current;
+        // 3. current -> 
+        current = next;
     }
-
-    let i = 0;
-    let j = result.length - 1;
-
-    while(i < j) {
-	let temp = result[i];
-	result[i] = result[j];
-	result[j] = temp;
-	i++;
-	j--;
-    }
-    return result;
+    // head becomes prev
+    return prev;
 }
+
+// output is an array
+function createArrayInReverse(node) {
+    let result = [];
+    let current = node;
+
+    while(current !== null) {
+        result.push(current.val);
+        current = current.next;
+    }
+
+    return result.reverse();
+}
+
+let ll = new Node(1, new Node(3, new Node(5, new Node(2))));
+console.log(reverseLL(ll), 'should return 2 -> 5 -> 3 -> 1');
 
 // 1 -> 3 -> 5 -> 2
 let head = new Node(1, new Node(3, new Node(5, new Node(2))))
-console.log(JSON.stringify(createArrayInReverse(head))
-=== JSON.stringify([2,5,3,1]))
+console.log(JSON.stringify(createArrayInReverse(head)) === JSON.stringify([2,5,3,1]))
 
 // 4 -> 9 -> 14
 head = new Node(4, new Node(9, new Node(14)))
@@ -119,3 +137,4 @@ console.log(JSON.stringify(createArrayInReverse(head))
 // null
 console.log(JSON.stringify(createArrayInReverse(null))
 === JSON.stringify([]))
+
