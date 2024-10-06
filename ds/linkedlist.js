@@ -1,45 +1,27 @@
-function Node(data, next) {
-	this.data = data;
-	this.next = next;
+class ListNode {
+    constructor(value = 0, next = null) {
+        this.value = value;
+        this.next = next;
+    }
 
-	this.getData = function() {
-		return this.data;
-	}
+    toString() {
+        let result = String(this.value);
+        if(this.next) {
+            result += ` -> ${this.next.toString()}`;
+        }
+        return result;
+    }
 }
 
-function init() {
-	let head = new Node('New York', null);
-	let tail = null;
+/*
+let boston = new ListNode('Boston', null);
+let philadelphia = new ListNode('Philadephia', boston);
+let sacramento = new ListNode('Sacramento', philadelphia);
+let austin = new ListNode('Austin', sacramento);
+let miami = new ListNode('Miami', austin);
+let oakland = new ListNode('Oakland', miami);
 
-	let nodeBoston = new Node('Boston', null);
-	head.next = nodeBoston;
+console.log(oakland.toString());
+*/
 
-	let nodeHartford = new Node('Hartford', null);
-	nodeBoston.next = nodeHartford;
-
-	let nodeNorwich = new Node('Norwich', null);
-	nodeHartford.next = nodeNorwich;
-
-	tail = new Node('Fremont', null);
-	nodeNorwich.next = tail;
-
-	return head;
-}
-
-function printNode(node) {
-	let p = node;
-	let string = '';
-	while(p != null) {
-		let data = p.getData();
-		string += data + " -> ";
-		// console.log(data + " -> ");
-		p = p.next;
-	}
-	let linkedList = string;
-	console.log(linkedList);
-	console.log('End');
-}
-
-//console.log(init());
-let node1 = init();
-printNode(node1);
+module.exports = ListNode;
