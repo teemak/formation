@@ -32,6 +32,26 @@ Write your algorithm.
 🧪 VERIFY
 Run tests. Methodically debug & analyze issues.
 
+// VERBAL SOLUTION
+Create helper to recursively merge lists, conditional on which value is larger (at any given call).
+If second list node is larger, continue "traversing" the first list recursively by passing in node one's next pointer.
+For the other case, do the opposite - but make sure to set the previous call's next value to your larger node passed in (node two). This ensures you are setting the proper nodes when you "switch sides".
+
+// RECURSIVE SOLUTION
+const mergeTwoLists = (l1, l2) => {      
+    if (!l1) {
+      return l2
+    } else if (!l2) {
+      return l1
+    } else if (l1.val < l2.val) {
+      l1.next = mergeTwoLists(l1.next, l2)
+      return l1
+    } else {
+      l2.next = mergeTwoLists(l1, l2.next)
+      return l2
+    }
+};
+
 '''
 */
 class ListNode {
@@ -42,14 +62,17 @@ class ListNode {
 
     print() {
         let result = String(this.val);
+
         if (this.next) {
             result += ` -> ${this.next.toString()}`;
         }
+
         return result;
     }
+
 }
 
-let mergeTwoLists = function(list1, list2) {
+let _mergeTwoLists = function(list1, list2) {
     let dummy = new ListNode();
     let current = dummy;
 
@@ -77,5 +100,20 @@ let mergeTwoLists = function(list1, list2) {
 let list1 = new ListNode(1, new ListNode(2, new ListNode(4, null)));
 let list2 = new ListNode(1, new ListNode(3, new ListNode(4, null)));
 
+const mergeTwoLists = (l1, l2) => {      
+    if (!l1) {
+      return l2
+    } else if (!l2) {
+      return l1
+    } else if (l1.val < l2.val) {
+      l1.next = mergeTwoLists(l1.next, l2)
+      return l1
+    } else {
+      l2.next = mergeTwoLists(l1, l2.next)
+      return l2
+    }
+};
+
 const result = mergeTwoLists(list1, list2);
 console.log(JSON.stringify(result));
+
