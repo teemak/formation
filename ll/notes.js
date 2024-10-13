@@ -14,6 +14,15 @@ class ListNode {
     }
 }
 
+function node(val, next = null) {
+    return {val, next};
+}
+
+function print(node) {
+    if(node === null) return;
+    return `${node.val} -> ${print(node.next)}`;
+}
+
 
 const dummy = new ListNode(0);
 const sentinel = new ListNode(0);
@@ -21,7 +30,7 @@ const sentinel = new ListNode(0);
 const LL = new ListNode(1, new ListNode(88, new ListNode(92, new ListNode(13, new ListNode(14, new ListNode(50))))));
 const LL2 = new ListNode(88, new ListNode(10, new ListNode(12, new ListNode(23, new ListNode(44, new ListNode(25))))));
 const LL3 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6))))));
-LL.next.next.next.next.next = LL2;
+LL.next.next.next.next.next.next = LL2;
 // LL.next = new ListNode(2, null);
 
 // console.log(LL);
@@ -55,9 +64,9 @@ function reverseLL(head) {
     return prev;
 }
 
-function count(head) {
+function count(node) {
     let count = 0; // increment each traversal
-    let node = head; // current node
+    //let node = head; // current node
 
     while(node) {
         // increment count if node
@@ -174,6 +183,7 @@ function findKthElement(node, k) {
     let lag = node;
     let lead = node;
 
+    // moves lead pointer k steps ahead
     for(let i = 0; i < k; i++) {
         if(lead) {
             lead = lead.next;
@@ -181,7 +191,7 @@ function findKthElement(node, k) {
             return -1;
         }
     }
-
+    
     while(lead) {
         lag = lag.next;
         lead = lead.next;
@@ -190,30 +200,39 @@ function findKthElement(node, k) {
     return lag.val;
 }
 
-// must be of equal length
+// must be of equal length,
+// variations - returns new LL - update LLx - different length LLs
 function sumTwoLL(LL1, LL2) {
     let sentinel = new ListNode(0);
     let current = sentinel, h1 = LL1, h2 = LL2;
 
+    // assumes LL is same length
     while(h1) {
+        // if new LL is needed
         current.next = new ListNode(h1.val + h2.val);
+        // updates LL1
+        // current.val = (h1.val + h2.val);
+        // pointer moves by one node
         current = current.next;
+        // move LL1 pointer
         h1 = h1.next;
+        // move LL2 pointer
         h2 = h2.next;
     }
 
     return sentinel.next;
 }
 
-console.log('Functions: \n1.  countElements*\n2.  append*\n3.  sumElements*\n4.  findMax*\n5.  removeAllTargetElements\n6.  findElement \n7.  insertElement*\n8.  findMiddle \n9.  findKthElement \n10. sumTwoLL \n11. removeTargetElement\n12. reverseLL\n');
+//console.log('Functions: \n1.  countElements*\n2.  append*\n3.  sumElements*\n4.  findMax*\n5.  removeAllTargetElements\n6.  findElement \n7.  insertElement*\n8.  findMiddle \n9.  findKthElement \n10. sumTwoLL \n11. removeTargetElement\n12. reverseLL\n');
 console.log(LL.toPrint());
+console.log(count(LL));
 // mutates original LL
 //let r1 = reverseLL(LL);
 //console.log(r1.toPrint());
 //console.log(count(r1));
 //console.log(findMax(LL));
 //console.log(sumElements(LL));
-append(LL, 88);
+/*append(LL, 88);
 append(LL, 88);
 console.log(LL.toPrint());
 console.log('COUNT: ', count(LL));
@@ -234,3 +253,4 @@ append(LL3, 7);
 append(LL3, 8);
 console.log('LL3: ', LL3.toPrint());
 console.log('LL4: ', sumTwoLL(LL2, LL3).toPrint());
+*/
