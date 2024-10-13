@@ -53,3 +53,48 @@ function findLargestPathSum(root) {
 }
 
 console.log(findLargestPathSum(tree) === 15 ? 'pass' : 'fail');
+
+
+function _findLargestPathSum(root) {
+    let largestSoFar = Number.MIN_VALUE;
+
+    function dfsHelper(root, totalSoFar) {
+        // base case, node is a leaf
+        if(!root.left && !root.right) {
+            //const sum = stack.reduce((a, total) => a + total, 0);
+            // sum will be passed by parent Node
+            largestSoFar = Math.max(totalSoFar + root.val, largestSoFar);
+            return;
+        }
+
+        // try all options
+        if(root.left) {
+            dfsHelper(root.left, totalSoFar + root.val) // search [6], [2]
+        }
+        if(root.right) {
+            dfsHelper(root.right, totalSoFar + root.val)
+        }
+        // no pop needed
+        // stack.pop();
+    }
+
+
+    if(root) {
+        dfsHelper(root, 0);
+    }
+
+    return largestSoFar;
+}
+
+console.log(_findLargestPathSum(tree) === 15 ? 'pass' : 'fail');
+
+function _findLargestPathSum_(root) {
+    if(!root) return 0;
+
+    return  Math.max(
+        root.val + _findLargestPathSum_(root.left),
+        root.val + _findLargestPathSum_(root.right));
+}
+
+console.log(_findLargestPathSum_(tree) === 15 ? 'pass' : 'fail');
+
