@@ -205,7 +205,7 @@ function sumTwoLL(LL1, LL2) {
     return sentinel.next;
 }
 
-console.log('Functions: \n1.  countElements \n2.  append \n3.  sumElements \n4.  findMax \n5.  removeAllTargetElements \n6.  findElement \n7.  insertElement \n8.  findMiddle \n9.  findKthElement \n10. sumTwoLL \n11. removeTargetElement\n12. reverseLL\n');
+console.log('Functions: \n1.  countElements*\n2.  append*\n3.  sumElements*\n4.  findMax*\n5.  removeAllTargetElements\n6.  findElement \n7.  insertElement*\n8.  findMiddle \n9.  findKthElement \n10. sumTwoLL \n11. removeTargetElement\n12. reverseLL\n');
 console.log(LL.toPrint());
 // mutates original LL
 //let r1 = reverseLL(LL);
