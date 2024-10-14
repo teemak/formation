@@ -1,6 +1,9 @@
-
+// largest element moves to last index
+// second largest element will be left of largest element
 function bubbleSort(arr) {
+    // optimize = arr.length - 1; end of scan will always have largest element
     for (let i = 0; i < arr.length; i++) {
+        // optimize = arr.length - i - 1; shrink swapping scan
         for (let j = 0; j < arr.length; j++) {
             // get comparison indices
             // j is current; next is j + 1
@@ -11,9 +14,11 @@ function bubbleSort(arr) {
             if(current > next) {
                 // swap current and next
                 // lesser value moves left
-                arr[j] = next;
+                arr[j] = arr[j+1];
+                // arr[j] = next;
                 // current value moves right
-                arr[j + 1] = current;
+                arr[j + 1] = arr[j]; // position / value arr[j] is 8 from previous line
+                //arr[j + 1] = current;
             }
             // current < next
             // values are in correct order
