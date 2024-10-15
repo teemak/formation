@@ -17,8 +17,8 @@ function bubbleSort(arr) {
                 arr[j] = arr[j+1];
                 // arr[j] = next;
                 // current value moves right
-                arr[j + 1] = arr[j]; // position / value arr[j] is 8 from previous line
-                //arr[j + 1] = current;
+                // arr[j + 1] = arr[j]; // position / value arr[j] is 8 from previous line
+                arr[j + 1] = current;
             }
             // current < next
             // values are in correct order
