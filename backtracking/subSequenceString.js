@@ -33,5 +33,8 @@ printSubsequences("ABCD");
 console.log(v1Results);
 printSubsequences2("ABCD");
 console.log(v2Results);
-console.log(v1Results.every((val, i) => val === v2Results[i]));
+
+// compare arrays
+// console.log(v1Results.every((val, i) => val === v2Results[i]));
+console.log(JSON.stringify(v1Results) === JSON.stringify(v2Results));
 
