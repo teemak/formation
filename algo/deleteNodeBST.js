@@ -33,9 +33,19 @@ function deleteNode(root, target) {
 
         // two children nodes
         // need to find the smallest node from right subtree
-        let successor = findMin(root.right);
-        root.val = successor.val;
-        root.right = deleteNode(root.right, successor.val);
+        // because this will replace the current node
+        // in-order successor is the smallest node in right subtree
+        // next highest value would be current node
+        // delete in-order successor from original position because it
+        // will never have a left child
+        let successor = findMin(root.right); // get smallest value from right subtree
+        // delete - lowest value becomes the current value
+        // minimize change to tree - only replace the value and not node
+        root.val = successor.val; 
+    
+        // two nodes with same val as the successor value
+        // keep deleting the successor node in right subtree
+        root.right = deleteNode(root.right, successor.val); 
     }
 
     return root;
