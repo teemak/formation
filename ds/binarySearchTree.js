@@ -1,3 +1,10 @@
+/* CORE ALGORITHM */
+// 1. traverse tree
+// 2. 3 cases
+//  i. match
+//  ii. current.val < target, i.e.  6 < 18 -> look to right node
+//  ii. current.val > target, i.e. 26 < 18 -> look to left node
+// 3. finished traversal, return false
 function searchBST(root, target) {
     let current = root;
     
@@ -17,6 +24,16 @@ class TreeNode {
     }
 }
 
+/* CORE ALGORITHM */
+// 1. traverse tree
+// 2. look for parent node
+//  i.  current.val < targetValue, i.e.  9 < 18 -> belongs on right
+//   a. replace current.right value
+//   b. create new node
+//  ii. current.val > targetValue, i.e. 20 > 18 -> belongs on leftc
+//   a. replace current.left value
+//   b. create new node
+// 3. return root after insert to stop iterating
 function insertBST(root, val) {
     if (!root) return new TreeNode(val);
     let current = root;
@@ -118,6 +135,14 @@ function print(root, nodes = []) {
     }
 }
 
+/* CORE ALGORITHM */
+// 1. iterate tree
+// 2. base case - no node
+// 3. helper function will check value with arguments of connecting node, lower bound, upper bound
+// 4. check if value is: (min < node.val < max)
+//  i.  out of bounds -> return false
+//  ii. recursively check (node.left, min, current.val) && (node.right, current.val, max) 
+// 5. start recursive call with (current node, minimum, maximum)
 function validateBST(node) {
     function helper(node, min, max) {
         if(!node) return true;
