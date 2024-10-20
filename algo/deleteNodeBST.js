@@ -1,43 +1,3 @@
-/*
-Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
-
-Basically, the deletion can be divided into two stages:
-
-Search for a node to remove.
-If the node is found, delete the node.
- 
-
-Example 1:
-
-
-Input: root = [5,3,6,2,4,null,7], key = 3
-Output: [5,4,6,2,null,null,7]
-Explanation: Given key to delete is 3. So we find the node with value 3 and delete it.
-One valid answer is [5,4,6,2,null,null,7], shown in the above BST.
-Please notice that another valid answer is [5,2,6,null,4,null,7] and it's also accepted.
-
-Example 2:
-
-Input: root = [5,3,6,2,4,null,7], key = 0
-Output: [5,3,6,2,4,null,7]
-Explanation: The tree does not contain a node with value = 0.
-Example 3:
-
-Input: root = [], key = 0
-Output: []
- 
-
-Constraints:
-
-The number of nodes in the tree is in the range [0, 104].
--105 <= Node.val <= 105
-Each node has a unique value.
-root is a valid binary search tree.
--105 <= key <= 105
- 
-
-Follow up: Could you solve it with time complexity O(height of tree)?
-*/
 class TreeNode {
     constructor(val = 0, left = null, right = null) {
         this.val = val;
@@ -46,31 +6,54 @@ class TreeNode {
     }
 }
 
-let tree = new TreeNode(1, null, new TreeNode(0, new TreeNode(0), new TreeNode(1))); //[1, null, 0, 0, 1]
+function deleteNode(root, target) {
+    // 1. search the node
+    //  a. if node's val is < key, recursively search left subtree
+    //  b. '' search right subtree
+    //  c. node.val === target
+    // 2. handle deletion
+    //  a. leaf node - node.val = null
+    //  b. one child - current node = node.child (left, right)
+    //  c. two children - 
+    //   i.  replace node with in-order successor
+    //   ii. delete successor node in right subtree
 
-// Prune binary tree
-function deleteNode(root) {
-    // replace 0 value nodes with null, ONLY if there are no children
-    function prune(node) {
-        // base case
-        if(!node) return null;
+    // edge case
+    if(!root) return null;
 
-        // travel to bottom of left subtree
-        node.left = prune(node.left);
-        // travel to bottom of right subtree
-        node.right = prune(node.right);
-        
-        let hasNoChild = !node.left && !node.right;
-        // check if val is zero, and if it's a leaf node => prune if condition met
-        if(node.val === 0 && hasNoChild) return null;
+    if(target < root.val) {
+        root.left = deleteNode(root.left, target);
+    } else if(target > root.val) {
+        root.right = deleteNode(root.right, target);
+    } else {
+        // handle deletion
+        if(!root.left && !root.right) return null; // leaf node
+        if(!root.left) return root.right; // one child - no left
+        else if(!root.right) return root.left; // one child - no right
 
-        // node has a 1 value and should remain in tree
-        return node;
+        // two children nodes
+        // need to find the smallest node from right subtree
+        let successor = findMin(root.right);
+        root.val = successor.val;
+        root.right = deleteNode(root.right, successor.val);
     }
 
-    return prune(root);
+    return root;
 }
 
-let res1 = deleteNode(tree, 0);
-console.log(res1);
+function findMin(node) {
+    while(node.left) {
+        node = node.left;
+    }
+    return node;
+}
+
+let root = new TreeNode(5);
+root.left = new TreeNode(3, new TreeNode(2), new TreeNode(4));
+root.right = new TreeNode(6, null, new TreeNode(7));
+
+let key = 3;  // Node to delete
+let updatedRoot = deleteNode(root, key);
+console.log(updatedRoot);
+
 
