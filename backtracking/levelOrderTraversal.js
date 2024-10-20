@@ -21,35 +21,55 @@ class TreeNode {
     }
 }
 
-
+// 0. handle edge case of empty trees
+// 1. use 3 queues, main, parent and child nodes
+// 2. iterate over main queue -
+//  a. need queues to separate parent and child nodes
+// 3. iterate parent queue - 
+//  b. keep pushing children nodes to nextLevel
+// 4. when node has no children, push that node to currentLevel queue
+// 5. iterate over nextLevel queue (child nodes)
 function levelOrderTraversal(root) {
-    // Edge case, input validation, no root - so return empty array
+    // 0. Edge case, input validation, no root - so return empty array
     if(!root) return [];
 
-    let result = [];
-    // queue needed for BFS
-    const queue = [root]; // [1] queue is using array by reference
+    // this is where nodes from a height will be stored
+    const levels = [];
+    // 1. queue needed for BFS - for children nodes
+    let queue = [root]; // [1] queue is using array by reference
 
     // bottom to top, keep reducing
-    while(queue.length > 0) {
-        const levelSize = queue.length;
-        const currentLevel = [];
+    // 2. 
+    while(queue.length) {
+        // const levelSize = queue.length;
+        // a. parent/child queues
+        const currentLevel = []; // store parent nodes
+        const nextLevel = []; // holds nodes with children
 
-        for(let i = 0; i < levelSize; i++) {
+        // 3. iterates over parent queue
+        for(const node of queue) {
+        //for(let i = 0; i < levelSize; i++) {
             // removed from front of queue - dequeue
-            const currentNode = queue.shift();
-            currentLevel.push(currentNode.val);
+            //const currentNode = queue.shift();
+            //currentLevel.push(currentNode.val);
 
             // iterative BFS
-            if(currentNode.left) queue.push(currentNode.left);
-            if(currentNode.right) queue.push(currentNode.right);
+            // remove children nodes, and store them for next iteration
+            // b.
+            if(node.left) nextLevel.push(node.left);
+            if(node.right) nextLevel.push(node.right);
+            // node with no children
+            // 4.
+            currentLevel.push(node.val);
         }
-
         // entire level is processed - then pushed
-        result.push(currentLevel);
+        levels.push(currentLevel);
+        // move the iteration for children nodes
+        // 5.
+        queue = nextLevel;
     }
 
-    return result;
+    return levels;
 }
 
 const root1 = new TreeNode(1);
