@@ -10,6 +10,29 @@ function isSymmetric(root) {
     return isMirror(root.left, root.right);
 }
 
+function _isSymmetric(root) {
+    if(!root) return true;
+
+    // FIFO - shift == dequeue
+    const queue = [root.left, root.right];
+
+    while(queue.length) {
+        const t1 = queue.shift();
+        const t2 = queue.shift();
+
+        if(!t1 && !t2) continue;
+        if(!t1 || !t2) return false;
+        if(t1.val !== t2.val) return false;
+
+        queue.push(t1.left);
+        queue.push(t2.right);
+        queue.push(t1.right);
+        queue.push(t2.left);
+    }
+
+    return true;
+}
+
 class TreeNode{
     constructor(val, left, right) {
         this.val = val || 0;
@@ -28,5 +51,5 @@ let tree2 = new TreeNode(1,
     new TreeNode(2, null, new TreeNode(3))
 );
 
-console.log(isSymmetric(tree1)); // Output: true
-console.log(isSymmetric(tree2)); // Output: false
+console.log(_isSymmetric(tree1)); // Output: true
+console.log(_isSymmetric(tree2)); // Output: false
