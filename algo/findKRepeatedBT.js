@@ -29,6 +29,8 @@ function solution(root, k) {
     /*for(const [val, count] of counts.entries()) {
         if(count === k) result.push(val);
     }*/
+    //for(const count of Object.keys(counts)) { iterates over values
+    //for(const count in counts) { iterates over keys
     for(const count in counts) {
         console.log("KEY: ", count + " VALUE: " + counts[count]);
         if(counts[count] === k) result.push(Number(count));
