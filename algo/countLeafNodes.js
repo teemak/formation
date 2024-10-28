@@ -37,26 +37,30 @@ const root1 = new TreeNode(1, _node2, node2_);
 
 //console.log(root1);
 
-function _leafNodes(root) {
-    let result = [];
+function leafNodes(root) {
+    //let result = [];
+    let count = 0;
 
     function helper(node) {
         // base case
         if(!node) return;
         // logic
-        if(!node.left && !node.right) result.push(node.val);
+        if(!node.left && !node.right) {
+            count++; //result.push(node.val);
+            return; // stop recursion for leaf nodes
+        }
         // recursion towards base case
         helper(node.left);
         helper(node.right);
     }
 
     helper(root)
-
-    return result;
+    return count;
+    //return result;
 }
 
-function leafNodes(node) {
-    let result = [];
+function _leafNodes(node) {
+    //let result = [];
     let count = 0;
     // DFS
     const stack = node ? [node] : [];
@@ -68,19 +72,21 @@ function leafNodes(node) {
         const isLeaf = !current.left && !current.right;
 
         // 1. leaf
-        if(isLeaf) {
-            result.push(current.val);
+        if(!current.left && !current.right) {
+            //result.push(current.val);
             count += 1;
-        // 2. not leaf
-        } else {
-            // push children nodes into stack
-            if(current.left) stack.push(current.left);
-            if(current.right) stack.push(current.right);
+            continue;
         }
+        // 2. not leaf
+        //} else {
+            // push children nodes into stack
+        if(current.left) stack.push(current.left);
+        if(current.right) stack.push(current.right);
+        //}
     }
-    console.log(result);
+    //console.log(result);
     return count;
 }
 
-let res1 = leafNodes(root1);
+let res1 = _leafNodes(root1);
 console.log(res1);

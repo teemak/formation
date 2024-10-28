@@ -38,12 +38,12 @@ class Node {
     }
 }
 
-function solution(input) {
+function _solution(input) {
     if(!input) return null;
 
     function build(i, direction) {
         // base case
-        if(i == input.length) return null;
+        if(i >= input.length) return null;
 
         // logic
         const node = new Node(input[i]);
@@ -61,5 +61,24 @@ function solution(input) {
     return build(0, true);
 }
 
+function solution(input) {
+    if(!input) return null;
+
+    let root = new Node(input[0]);
+    let current = root;
+    let direction = true;
+
+    for(let i = 1; i < input.length; i++) {
+        const node = new Node(input[i]);
+        if(direction) current.right = node;
+        else current.left = node;
+
+        current = node;
+        direction = !direction;
+    }
+
+    return root;
+}
+
 let result = solution([1, 2, 3, 4, 5]);
-console.log(JSON.stringify(result, null, 2));
+console.log(JSON.stringify(result, null, 4));

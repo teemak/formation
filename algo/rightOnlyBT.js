@@ -36,8 +36,8 @@ function node(val, left = null, right = null) {
 //          / \
 //       null  3
 
-function solution(input) {
-    if(!input) return -1;
+function _solution(input) {
+    if(!input) return null;
     let root = new node(input[0]);
     let current = root;
     
@@ -46,6 +46,13 @@ function solution(input) {
         current = current.right;
     }
 
+    return root;
+}
+
+function solution(input, idx = 0) {
+    if(idx >= input.length) return null;
+    const root = new node(input[idx]);
+    root.right = solution(input, idx+1);
     return root;
 }
 
