@@ -86,5 +86,5 @@ console.log(JSON.stringify(res1, null, 2)); // 1 -> 4 -> 3 -> 2 -> 5
 
 let LL2 = arrayToList([1,2,3,4,5,6,7,8,9,10,11]);
 let res2 = swapNodes(LL2, 7);
-console.log(JSON.stringify(res2, null, 2)); // 1 -> 2 -> 3 -> 2 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11
+console.log(JSON.stringify(res2, null, 2)); // 1 -> 2 -> 3 -> 4 -> 7 -> 6 -> 5 -> 8 -> 9 -> 10 -> 11
 
