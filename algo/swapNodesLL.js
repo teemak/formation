@@ -28,27 +28,37 @@ class ListNode {
 }
 
 function swapNodes(head, k) {
-    let first = head;
-    let last = head;
+    let swapStart = head; //swapped node
+    let swapEnd = head; //swapped node
 
     //let current = head;
 
     // moves pointer to k
+    // swapStart stays at node to swap
     for(let i = 1; i < k; i++) {
-        first = first.next;
+        swapStart = swapStart.next;
     }
     // console.log('FIRST NODE: ', first); 4 -> 5
 
-    let twin = first;
-    while(twin.next !== null) {
-        twin = twin.next;
-        last = last.next;
+    let leadPointer = swapStart;
+
+    // increment towards end
+    // space between (swapEnd --- leadPointer) is k nodes
+    // when leadPointer reaches end, swapEnd is k nodes from end
+    while(leadPointer.next) {
+        leadPointer = leadPointer.next;
+        swapEnd = swapEnd.next;
     }
+    //console.log('SWAP START: ', swapStart.val);
+    //console.log('Pointer: ', leadPointer.val);
+    //console.log('SWAP END: ', swapEnd.val);
 
     // swap logic
-    let temp = first.val;
-    first.val = last.val;
-    last.val = temp;
+    /*let temp = swapStart.val;
+    swapStart.val = swapEnd.val;
+    swapEnd.val = temp;*/
+
+    [swapStart.val, swapEnd.val] = [swapEnd.val, swapStart.val];
 
     return head;
 }
@@ -73,4 +83,8 @@ function arrayToList(arr) {
 let LL1 = arrayToList([1,2,3,4,5]);
 let res1 = swapNodes(LL1, 4);
 console.log(JSON.stringify(res1, null, 2)); // 1 -> 4 -> 3 -> 2 -> 5
+
+let LL2 = arrayToList([1,2,3,4,5,6,7,8,9,10,11]);
+let res2 = swapNodes(LL2, 7);
+console.log(JSON.stringify(res2, null, 2)); // 1 -> 2 -> 3 -> 2 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11
 
