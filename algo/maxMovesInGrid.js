@@ -28,10 +28,17 @@ n == grid[i].length
 2 <= m, n <= 1000
 4 <= m * n <= 105
 1 <= grid[i][j] <= 106
+
+boundaries:
+    newRow >= 0 
+    newRow < m
+    newCol < n
+    grid[newRow][newCol] > grid[row][col]
+
 */
 
 function maxMoves(grid) {
-    const m = grid.length;
+    const m = grid.length; // cols
     const n = grid[0].length;
     const directions = [[-1,1],[0,1],[1,1]]
     const memo = Array.from({ length: m}, () => Array(n).fill(-1));
@@ -91,7 +98,7 @@ function maxMoves(grid) {
  *
  */
 
-let grid1 = [[2,4,3,5],[5,4,9,3],[3,4,2,11],[10,9,13,15]];
+let grid1 = [[2,4,3,5],[5,4,9,3],[3,4,2,11],[10,9,13,15]]; // grid length = 4
 console.log(maxMoves(grid1)); // 3
 
 let grid2 = [[3,2,4],[2,1,9],[1,1,7]];
