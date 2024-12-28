@@ -18,21 +18,25 @@ def find_available_slots(schedules, duration):
     open = 8
     close = 17
 
-    # combine into single schedule
+    # 1 - flatten into single schedule
     for intervals in schedules.values():
         busy_intervals.extend(intervals)
 
-    # merge overlapping schedules
+    # 2 - merge overlapping schedules
     busy_intervals.sort()
 
     for start, end in busy_intervals:
+        # check if key is available and meeting start hour is valid
         if not merged_intervals or merged_intervals[-1][1] < start:
+            # no overlap
             merged_intervals.append((start, end))
         else:
+            # overlap - use the ending hour
+            # to cover the furthest overlapping range
             merged_intervals[-1] = (merged_intervals[-1][0],
                                     max(merged_intervals[-1][1], end))
 
-    # find available hours
+    # 3 - find available hours (inverse of busy_intervals)
     for start, end in merged_intervals:
         if open < start:
             free_intervals.append((open, start))
@@ -41,7 +45,7 @@ def find_available_slots(schedules, duration):
     if open < close:
         free_intervals.append((open, close))
 
-    # filter slots that fit meeting duration
+    # 4 - filter slots that fit meeting duration
     for start, end in free_intervals:
         potential_start = start
 
