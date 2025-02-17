@@ -23,10 +23,12 @@ Return the **modified** image after performing the flood fill.
 
 
 def flood_fill(image, row, col, color):
-    """
-    :type image: List[List[int]]
-    :type sr: int
-    :type sc: int
-    :type color: int
-    :rtype: List[List[int]]
-    """
+    return image
+
+image = [
+    [1,1,1],
+    [1,0,1],
+    [0,0,1]
+]
+
+print(flood_fill(image, 2, 3, 1))

@@ -2,16 +2,7 @@ import unittest
 
 from flood_fill import flood_fill
 
-
 class TestFloodFill(unittest.TestCase):
-    """
-    :type image: List[List[int]]
-    :type sr: int
-    :type sc: int
-    :type color: int
-    :rtype: List[List[int]]
-    """
-
     def test_fill_changes_correct_pixels(self):
         """
         fill only one cell
